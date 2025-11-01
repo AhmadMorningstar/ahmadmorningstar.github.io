@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ahmad Morningstar — Ahmad iT</title>
+  <meta name="description" content="Ahmad Morningstar — Student & tech tinkerer. I build apps, games, DIY Arduino projects & fix gadgets." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #0f1724;
+      --bg2: #07122b;
+      --accent1: #7c5cff;
+      --accent2: #00d2ff;
+      --glass: rgba(255, 255, 255, 0.06);
+      --muted: rgba(230, 240, 255, 0.8);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      color: #e6f0ff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    main {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 18px;
+      max-width: 500px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      text-align: center;
+      backdrop-filter: blur(10px) saturate(120%);
+    }
+    .avatar {
+      width: 140px; height: 140px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .avatar svg { width: 100px; height: 100px; }
+    h1 { font-size: 1.6rem; margin-bottom: 4px; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 10px; }
+    p.bio { color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+    .links { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+    .linkbtn {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      padding: 10px 16px;
+      border-radius: 10px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      width: 100%;
+      max-width: 300px;
+    }
+    .linkbtn:hover { transform: scale(1.03); opacity: 0.9; }
+    footer { margin-top: 24px; color: var(--muted); font-size: 0.8rem; }
+    @media (max-width: 500px) {
+      main { padding: 18px; }
+      h1 { font-size: 1.4rem; }
+      p.bio { font-size: 0.9rem; }
+      .linkbtn { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="avatar">
+      <!-- Replace with your image if desired -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="grad" x1="0" x2="1">
+            <stop offset="0" stop-color="#7c5cff"/>
+            <stop offset="1" stop-color="#00d2ff"/>
+          </linearGradient>
+        </defs>
+        <rect width="100" height="100" rx="16" fill="url(#grad)"/>
+        <text x="50" y="62" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="44" fill="#07122b">A</text>
+      </svg>
+    </div>
+
+    <h1>Ahmad Morningstar <span style="color: var(--accent2); font-size: 0.9rem;">he/him</span></h1>
+    <div class="subtitle">💻 Ahmad iT — Student & tech tinkerer</div>
+    <p class="bio">I build apps, games, DIY Arduino projects & fix gadgets. Always learning, always creating. Passionate about technology, design, and innovation.</p>
+
+    <div class="links">
+      <a class="linkbtn" href="mailto:ahmadmorningstarr@gmail.com">✉️ Email Me</a>
+      <a class="linkbtn" href="https://play.google.com/store/apps/dev?id=8160999261667314120" target="_blank">🔗 Google Play Store</a>
+      <a class="linkbtn" href="https://github.com/AhmadMorningstar" target="_blank">🐙 GitHub Profile</a>
+    </div>
+
+
+    <div class="links" style="margin-top: 14px;">
+      <a class="linkbtn" href="https://www.facebook.com/ahmmorningstar" target="_blank">📘 Facebook</a>
+      <a class="linkbtn" href="https://instagram.com/ahmadmorningstar" target="_blank">📸 Instagram</a>
+    </div>
+    <footer>© 2025-2026 Ahmad Morningstar — HK-OS, Ahmad-iT</footer>
+  </main>
+</body>
+</html>
