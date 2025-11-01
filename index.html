@@ -22,6 +22,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      transition: background 0.8s ease, color 0.8s ease;
     }
     main {
       background: rgba(255,255,255,0.03);
@@ -33,6 +34,7 @@
       box-shadow: 0 10px 40px rgba(2,6,23,0.6);
       text-align: center;
       backdrop-filter: blur(10px) saturate(120%);
+      transition: background 0.8s ease, border 0.8s ease;
     }
     .avatar {
       width: 140px; height: 140px;
@@ -41,13 +43,13 @@
       margin: 0 auto 16px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.5s ease;
       border: 3px solid rgba(255,255,255,0.05);
     }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
-    h1 { font-size: 1.6rem; margin-bottom: 4px; }
-    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 10px; }
-    p.bio { color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; transition: all 0.5s ease; }
+    h1 { font-size: 1.6rem; margin-bottom: 4px; transition: color 0.8s ease; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 10px; transition: color 0.8s ease; }
+    p.bio { color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; transition: color 0.8s ease; }
     .links { display: flex; flex-direction: column; gap: 10px; align-items: center; }
     .linkbtn {
       text-decoration: none;
@@ -56,22 +58,42 @@
       background: linear-gradient(90deg, #7c5cff, #00d2ff);
       padding: 10px 16px;
       border-radius: 10px;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.8s ease;
       width: 100%;
       max-width: 300px;
     }
     .linkbtn:hover { transform: scale(1.03); opacity: 0.9; }
-    footer { margin-top: 24px; color: var(--muted); font-size: 0.8rem; }
+    footer { margin-top: 24px; color: var(--muted); font-size: 0.8rem; transition: color 0.8s ease; }
+    #gradient-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 24px;
+      color: #fff;
+      backdrop-filter: blur(10px) saturate(120%);
+    }
+    #gradient-btn:hover { transform: scale(1.1); background: rgba(255,255,255,0.2); }
     @media (max-width: 500px) {
       main { padding: 18px; }
       h1 { font-size: 1.4rem; }
       p.bio { font-size: 0.9rem; }
       .linkbtn { font-size: 0.9rem; }
+      #gradient-btn { width: 45px; height: 45px; font-size: 20px; }
     }
   </style>
 </head>
 <body>
-  <main>
+  <main id="main-content">
     <div class="avatar" id="avatar">
       <img src="https://raw.githubusercontent.com/AhmadMorningstar/ahmadmorningstar.github.io/main/Ahmad-iT.jpg" alt="Ahmad Morningstar" onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';">
       <svg id="avatar-fallback" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="display:none; width:100px; height:100px;">
@@ -103,25 +125,36 @@
     <footer>© 2025-2026 Ahmad Morningstar — HK-OS, Ahmad-iT</footer>
   </main>
 
+  <button id="gradient-btn" title="Change Theme">🎨</button>
+
   <script>
     const avatar = document.getElementById('avatar');
+    const mainContent = document.getElementById('main-content');
+    const gradientBtn = document.getElementById('gradient-btn');
 
-    // Gradient options
     const gradients = [
-      'linear-gradient(135deg, #7c5cff, #00d2ff)', // Purple → Cyan
-      'linear-gradient(135deg, #ff7e5f, #ff6a95)', // Orange → Pink
-      'linear-gradient(135deg, #00c6ff, #0072ff)', // Blue → Green
-      'linear-gradient(135deg, #ffd200, #ff7a00, #ff005a)', // Sunset
-      'linear-gradient(135deg, #9d50bb, #6e48aa, #ff7e5f)'  // Purple → Pink → Orange
+      {bg: 'linear-gradient(180deg, #0f1724, #07122b)', accent: '#7c5cff'},
+      {bg: 'linear-gradient(180deg, #ff7e5f, #ff6a95)', accent: '#ff7e5f'},
+      {bg: 'linear-gradient(180deg, #00c6ff, #0072ff)', accent: '#00c6ff'},
+      {bg: 'linear-gradient(180deg, #ffd200, #ff005a)', accent: '#ffd200'},
+      {bg: 'linear-gradient(180deg, #9d50bb, #ff7e5f)', accent: '#9d50bb'}
     ];
 
     let current = 0;
-    avatar.style.background = gradients[current];
 
-    avatar.addEventListener('click', () => {
+    gradientBtn.addEventListener('click', () => {
       current = (current + 1) % gradients.length;
-      avatar.style.background = gradients[current];
+      const g = gradients[current];
+      document.body.style.background = g.bg;
+      mainContent.style.background = g.bg;
+      mainContent.style.border = `1px solid ${g.accent}`;
+      document.querySelectorAll('.linkbtn').forEach(btn => btn.style.background = `linear-gradient(90deg, ${g.accent}, ${g.accent})`);
+      document.querySelectorAll('h1 span, .subtitle, .bio, footer').forEach(el => el.style.color = g.accent);
+      avatar.style.borderColor = g.accent;
     });
+
+    // initial avatar background gradient
+    avatar.style.background = 'linear-gradient(135deg, #7c5cff, #00d2ff)';
   </script>
 </body>
 </html>
