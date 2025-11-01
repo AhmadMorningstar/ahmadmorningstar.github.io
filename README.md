@@ -24,12 +24,4 @@ I build apps, games, DIY Arduino projects & fix gadgets. Always learning, always
 - Passionate about UI/UX design and sleek, dynamic websites.
 - Constantly learning and sharing knowledge.
 
----
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/AhmadMorningstar/AhmadMorningstar/main/Ahmad-iT.jpg" alt="Ahmad Morningstar" width="200" style="border-radius:20px;"/>
-</p>
-
----
-
-> This profile is synced with my personal website — click around for a vibrant interactive experience!
+CHEERS 😁
