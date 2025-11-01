@@ -1,5 +1,3 @@
-<!doctype html>
-<html lang="en">
 <head>
   <meta name="google-site-verification" content="TwR6Yspod_RnUwZywfQJBPmMlG_xkPV9QSeNmWGNv6M" />
   <meta charset="utf-8" />
@@ -135,7 +133,6 @@
   </main>
 
   <button id="gradient-btn" title="Change Theme">🎨</button>
-
   <script>
     const avatar = document.getElementById('avatar');
     const mainContent = document.getElementById('main-content');
@@ -151,6 +148,39 @@
 
     let current = 0;
 
+    // FUNCTION: Generate favicon dynamically based on gradient
+    function updateFavicon(gradient) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const ctx = canvas.getContext('2d');
+
+      // Extract hex colors from gradient string
+      const colors = gradient.match(/#([0-9a-f]{6})/gi) || ['#7c5cff', '#00d2ff'];
+      const grad = ctx.createLinearGradient(0, 0, 32, 32);
+      grad.addColorStop(0, colors[0]);
+      grad.addColorStop(1, colors[1]);
+
+      // Fill background
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 32, 32);
+
+      // Draw "A" in center
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '20px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('A', 16, 16);
+
+      // Update favicon
+      const favicon = document.getElementById('favicon');
+      favicon.href = canvas.toDataURL('image/png');
+    }
+
+    // Initialize first favicon
+    updateFavicon(gradients[current].bg);
+
+    // THEME BUTTON CLICK EVENT
     gradientBtn.addEventListener('click', () => {
       current = (current + 1) % gradients.length;
       const g = gradients[current];
@@ -180,7 +210,9 @@
       avatar.style.background = g.bg;
       avatar.style.backgroundSize = '400% 400%';
       avatar.style.animation = 'gradientShift 20s ease infinite';
+
+      // UPDATE FAVICON
+      updateFavicon(g.bg);
     });
   </script>
 </body>
-</html>
