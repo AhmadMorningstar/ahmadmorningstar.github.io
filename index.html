@@ -10,9 +10,6 @@
     :root {
       --bg1: #0f1724;
       --bg2: #07122b;
-      --accent1: #7c5cff;
-      --accent2: #00d2ff;
-      --glass: rgba(255, 255, 255, 0.06);
       --muted: rgba(230, 240, 255, 0.8);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,10 +39,12 @@
       border-radius: 20px;
       overflow: hidden;
       margin: 0 auto 16px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
       display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid rgba(255,255,255,0.05);
     }
-    .avatar svg { width: 100px; height: 100px; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
     h1 { font-size: 1.6rem; margin-bottom: 4px; }
     .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 10px; }
     p.bio { color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
@@ -54,7 +53,7 @@
       text-decoration: none;
       color: #fff;
       font-weight: 600;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      background: linear-gradient(90deg, #7c5cff, #00d2ff);
       padding: 10px 16px;
       border-radius: 10px;
       transition: transform 0.2s ease, opacity 0.2s ease;
@@ -73,13 +72,21 @@
 </head>
 <body>
   <main>
-    <div class="avatar">
-  <img src="https://raw.githubusercontent.com/AhmadMorningstar/ahmadmorningstar.github.io/main/Ahmad-iT.jpg" 
-       alt="Ahmad Morningstar"
-       style="width:100%; height:100%; object-fit: cover; border-radius: 20px;">
-</div>
+    <div class="avatar" id="avatar">
+      <img src="https://raw.githubusercontent.com/AhmadMorningstar/ahmadmorningstar.github.io/main/Ahmad-iT.jpg" alt="Ahmad Morningstar" onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';">
+      <svg id="avatar-fallback" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="display:none; width:100px; height:100px;">
+        <defs>
+          <linearGradient id="grad" x1="0" x2="1">
+            <stop offset="0" stop-color="#7c5cff"/>
+            <stop offset="1" stop-color="#00d2ff"/>
+          </linearGradient>
+        </defs>
+        <rect width="100" height="100" rx="16" fill="url(#grad)"/>
+        <text x="50" y="62" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="44" fill="#07122b">A</text>
+      </svg>
+    </div>
 
-    <h1>Ahmad Morningstar <span style="color: var(--accent2); font-size: 0.9rem;">he/him</span></h1>
+    <h1>Ahmad Morningstar <span style="color: #00d2ff; font-size: 0.9rem;">he/him</span></h1>
     <div class="subtitle">💻 Ahmad iT — Student & tech tinkerer</div>
     <p class="bio">I build apps, games, DIY Arduino projects & fix gadgets. Always learning, always creating. Passionate about technology, design, and innovation.</p>
 
@@ -89,12 +96,32 @@
       <a class="linkbtn" href="https://github.com/AhmadMorningstar" target="_blank">🐙 GitHub Profile</a>
     </div>
 
-
     <div class="links" style="margin-top: 14px;">
       <a class="linkbtn" href="https://www.facebook.com/ahmmorningstar" target="_blank">📘 Facebook</a>
       <a class="linkbtn" href="https://instagram.com/ahmadmorningstar" target="_blank">📸 Instagram</a>
     </div>
     <footer>© 2025-2026 Ahmad Morningstar — HK-OS, Ahmad-iT</footer>
   </main>
+
+  <script>
+    const avatar = document.getElementById('avatar');
+
+    // Gradient options
+    const gradients = [
+      'linear-gradient(135deg, #7c5cff, #00d2ff)', // Purple → Cyan
+      'linear-gradient(135deg, #ff7e5f, #ff6a95)', // Orange → Pink
+      'linear-gradient(135deg, #00c6ff, #0072ff)', // Blue → Green
+      'linear-gradient(135deg, #ffd200, #ff7a00, #ff005a)', // Sunset
+      'linear-gradient(135deg, #9d50bb, #6e48aa, #ff7e5f)'  // Purple → Pink → Orange
+    ];
+
+    let current = 0;
+    avatar.style.background = gradients[current];
+
+    avatar.addEventListener('click', () => {
+      current = (current + 1) % gradients.length;
+      avatar.style.background = gradients[current];
+    });
+  </script>
 </body>
 </html>
