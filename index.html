@@ -8,32 +8,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg1: #0f1724;
-      --bg2: #07122b;
-      --muted: rgba(230, 240, 255, 0.8);
+      --muted: rgba(230, 240, 255, 0.9);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, var(--bg1), var(--bg2));
       color: #e6f0ff;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      transition: background 0.8s ease, color 0.8s ease;
+      transition: color 0.8s ease;
+      background: linear-gradient(270deg, #0f1724, #07122b, #0f1724);
+      background-size: 600% 600%;
+      animation: gradientShift 20s ease infinite;
     }
     main {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(15,23,36,0.8);
       border-radius: 18px;
       max-width: 500px;
       width: 100%;
       padding: 24px;
       box-shadow: 0 10px 40px rgba(2,6,23,0.6);
       text-align: center;
-      backdrop-filter: blur(10px) saturate(120%);
+      backdrop-filter: blur(12px) saturate(120%);
       transition: background 0.8s ease, border 0.8s ease;
     }
     .avatar {
@@ -44,26 +43,30 @@
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
       transition: all 0.5s ease;
-      border: 3px solid rgba(255,255,255,0.05);
+      border: 3px solid rgba(255,255,255,0.1);
+      background: linear-gradient(135deg, #7c5cff, #00d2ff);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
     }
     .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; transition: all 0.5s ease; }
     h1 { font-size: 1.6rem; margin-bottom: 4px; transition: color 0.8s ease; }
-    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 10px; transition: color 0.8s ease; }
-    p.bio { color: var(--muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; transition: color 0.8s ease; }
+    .subtitle, p.bio, footer { color: var(--muted); transition: color 0.8s ease; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
     .links { display: flex; flex-direction: column; gap: 10px; align-items: center; }
     .linkbtn {
       text-decoration: none;
       color: #fff;
       font-weight: 600;
-      background: linear-gradient(90deg, #7c5cff, #00d2ff);
       padding: 10px 16px;
       border-radius: 10px;
       transition: transform 0.2s ease, opacity 0.2s ease, background 0.8s ease;
       width: 100%;
       max-width: 300px;
+      background: linear-gradient(90deg, #7c5cff, #00d2ff);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
     }
     .linkbtn:hover { transform: scale(1.03); opacity: 0.9; }
-    footer { margin-top: 24px; color: var(--muted); font-size: 0.8rem; transition: color 0.8s ease; }
     #gradient-btn {
       position: fixed;
       bottom: 20px;
@@ -83,6 +86,11 @@
       backdrop-filter: blur(10px) saturate(120%);
     }
     #gradient-btn:hover { transform: scale(1.1); background: rgba(255,255,255,0.2); }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     @media (max-width: 500px) {
       main { padding: 18px; }
       h1 { font-size: 1.4rem; }
@@ -133,11 +141,11 @@
     const gradientBtn = document.getElementById('gradient-btn');
 
     const gradients = [
-      {bg: 'linear-gradient(180deg, #0f1724, #07122b)', accent: '#7c5cff'},
-      {bg: 'linear-gradient(180deg, #ff7e5f, #ff6a95)', accent: '#ff7e5f'},
-      {bg: 'linear-gradient(180deg, #00c6ff, #0072ff)', accent: '#00c6ff'},
-      {bg: 'linear-gradient(180deg, #ffd200, #ff005a)', accent: '#ffd200'},
-      {bg: 'linear-gradient(180deg, #9d50bb, #ff7e5f)', accent: '#9d50bb'}
+      {bg: 'linear-gradient(135deg, #7c5cff, #00d2ff)', accent: '#7c5cff'},
+      {bg: 'linear-gradient(135deg, #ff7e5f, #ff6a95)', accent: '#ff7e5f'},
+      {bg: 'linear-gradient(135deg, #00c6ff, #0072ff)', accent: '#00c6ff'},
+      {bg: 'linear-gradient(135deg, #ffd200, #ff005a)', accent: '#ffd200'},
+      {bg: 'linear-gradient(135deg, #9d50bb, #ff7e5f)', accent: '#9d50bb'}
     ];
 
     let current = 0;
@@ -146,15 +154,13 @@
       current = (current + 1) % gradients.length;
       const g = gradients[current];
       document.body.style.background = g.bg;
-      mainContent.style.background = g.bg;
+      mainContent.style.background = 'rgba(15,23,36,0.8)'; // keep readability
       mainContent.style.border = `1px solid ${g.accent}`;
-      document.querySelectorAll('.linkbtn').forEach(btn => btn.style.background = `linear-gradient(90deg, ${g.accent}, ${g.accent})`);
+      document.querySelectorAll('.linkbtn').forEach(btn => btn.style.background = g.bg);
       document.querySelectorAll('h1 span, .subtitle, .bio, footer').forEach(el => el.style.color = g.accent);
       avatar.style.borderColor = g.accent;
+      avatar.style.background = g.bg;
     });
-
-    // initial avatar background gradient
-    avatar.style.background = 'linear-gradient(135deg, #7c5cff, #00d2ff)';
   </script>
 </body>
 </html>
