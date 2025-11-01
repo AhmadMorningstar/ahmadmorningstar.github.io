@@ -65,7 +65,7 @@
       background: linear-gradient(90deg, #7c5cff, #00d2ff);
       background-size: 400% 400%;
       animation: gradientShift 20s ease infinite;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
     .linkbtn:hover { transform: scale(1.03); opacity: 0.9; }
     #gradient-btn {
@@ -154,13 +154,32 @@
     gradientBtn.addEventListener('click', () => {
       current = (current + 1) % gradients.length;
       const g = gradients[current];
+
+      // Animate body background
       document.body.style.background = g.bg;
-      mainContent.style.background = 'rgba(15,23,36,0.8)'; // keep readability
+      document.body.style.backgroundSize = '600% 600%';
+      document.body.style.animation = 'gradientShift 20s ease infinite';
+
+      // Main content keeps readability
+      mainContent.style.background = 'rgba(15,23,36,0.8)';
       mainContent.style.border = `1px solid ${g.accent}`;
-      document.querySelectorAll('.linkbtn').forEach(btn => btn.style.background = g.bg);
+
+      // Links
+      document.querySelectorAll('.linkbtn').forEach(btn => {
+        btn.style.background = g.bg;
+        btn.style.backgroundSize = '400% 400%';
+        btn.style.animation = 'gradientShift 20s ease infinite';
+        btn.style.textShadow = '0 1px 2px rgba(0,0,0,0.5)';
+      });
+
+      // Texts
       document.querySelectorAll('h1 span, .subtitle, .bio, footer').forEach(el => el.style.color = g.accent);
+
+      // Avatar
       avatar.style.borderColor = g.accent;
       avatar.style.background = g.bg;
+      avatar.style.backgroundSize = '400% 400%';
+      avatar.style.animation = 'gradientShift 20s ease infinite';
     });
   </script>
 </body>
